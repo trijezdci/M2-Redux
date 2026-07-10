@@ -165,7 +165,7 @@ SetFoo(expr);
 
 ### DIV and MOD with Negative Operands
 
-M2-Redux will replace all occurences of sub-expression terms that use `DIV` and `MOD` on operands of type `INTEGER` and `LONGINT` with equivalent function calls to tdiv(), tmod(), fdiv() and fmod(). This requires the use of command line options `--pim2`, `--pim3` or `--pim4`.
+M2-Redux will replace all occurences of sub-expression terms that use `DIV` and `MOD` on operands of type `INTEGER` and `LONGINT` with equivalent library function calls to `tdiv()`, `tmod()`, `fdiv()` and `fmod()`. This requires the use of command line options `--pim2`, `--pim3` or `--pim4`.
 
 ```modula-2
 quotient := i DIV j;
