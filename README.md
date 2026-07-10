@@ -161,7 +161,7 @@ foo := expr;
 will be replaced by
 ```modula-2
 FROM Foo IMPORT foo, setFoo;
-setFoo(expr);
+SetFoo(expr);
 ```
 
 ### DIV and MOD with Negative Operands
