@@ -68,7 +68,7 @@ i := -(a + b); (* --ebnf-conform-unary-minus *)
 ```
 respectively
 ```modula-2
-i := -(a) + b; (* --math-conform-unary-minus *)
+i := (-a) + b; (* --math-conform-unary-minus *)
 ```
 depending on the command line option passed.
 
