@@ -136,13 +136,19 @@ IMPLEMENTATION MODULE Foo;
   ...
 END Foo.
 ```
-and a standalone library will be created
+and a standalone library will be created with a definition module that marks the library private with a `PRIVATETO` pragma
 ```modula-2
 DEFINITION MODULE Bar (*$PRIVATETO=Foo*);
-  ...
+  << interface for module Bar >>
 END Bar.
 ```
-where the body of the module will be copied into the corresponding implementation module.
+and where the implementation module contains the body of the formerly local module.
+```modula-2
+IMPLEMENTATION MODULE Bar;
+  << body of local module Bar >>
+END Bar.
+```
+
 
 ### Access Mode for Imported Variables
 
