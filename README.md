@@ -36,11 +36,11 @@ CONST Foo = 255; (* decimal representation *)
 M2-Redux will replace all occurences of character code literals with their decimal equivalents wrapped in a function call to the built-in `CHR()` function.
 
 ```modula-2
-CONST Space = 24C; (* octal representation *)
+CONST Space = 40C; (* octal representation *)
 ```
 will be replaced by
 ```modula-2
-CONST Space = CHR(20); (* decimal representation *)
+CONST Space = CHR(32); (* decimal representation *)
 ```
 
 ### Suffix Literals (Optional)
