@@ -52,3 +52,7 @@ CONST Space = CHR(20); (* decimal representation *)
 ### Array Type Definitions
 
 ### Local (Nested) Modules
+
+### Access Mode for Imported Variables
+
+### DIV and MOD with Negative Operands
