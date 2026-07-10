@@ -198,7 +198,7 @@ size := SYSTEM.SIZE(variantRecord);
 ```
 will be replaced by
 ```modula-2
-size := SIZE(variandRecord);
+size := SIZE(variantRecord);
 ```
 
 M2-Redux will further replace any call to function `SYSTEM.SIZE()`, qualified or unqualified, or to pervasive function `SIZE()` that has an argument that is not of a variant record type with an equivalent call to pervasive function `TSIZE()`.
