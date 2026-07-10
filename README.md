@@ -118,6 +118,32 @@ TYPE A = ARRAY [0..9], [0..9] OF B; (* short form *)
 
 ### Local (Nested) Modules
 
+M2-Redux will remove all occurences of local modules and create an equivalent standalone library.
+
+```modula-2
+IMPLEMENTATION MODULE Foo;
+  ...
+  MODULE Bar;
+    ...
+  END Bar;
+  ...
+END Foo.
+```
+will be replaced by
+```modula-2
+IMPLEMENTATION MODULE Foo;
+  IMPORT Bar;
+  ...
+END Foo.
+```
+and a standalone library will be created
+```modula-2
+DEFINITION MODULE Bar (*$PRIVATETO=Foo*);
+  ...
+END Bar.
+```
+where the body of the module will be copied into the corresponding implementation module.
+
 ### Access Mode for Imported Variables
 
 M2-Redux will replace all L-value occurences of imported variables into procedure calls to a setter procedure.
@@ -143,13 +169,13 @@ modulus := i MOD j;
 will be replaced by
 ```modula-2
 (* --pim3 *)
-quotient := tdiv(i, j);
+quotient := tdiv(i, j); (* truncated integer division *)
 modulus := tmod(i, j);
 ```
 respectively
 ```modula-2
 (* --pim4 *)
-quotient := fdiv(i, j);
+quotient := fdiv(i, j); (* floored integer division *)
 modulus := fmod(i, j);
 ```
 depending on the command line option passed.
