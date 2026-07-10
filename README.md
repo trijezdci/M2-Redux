@@ -36,7 +36,7 @@ CONST Foo = 255; (* decimal representation *)
 M2-Redux will replace all occurences of character code literals with their decimal equivalents wrapped in a function call to the built-in `CHR()` function.
 
 ```modula-2
-CONST Space = 24B; (* octal representation *)
+CONST Space = 24C; (* octal representation *)
 ```
 will be replaced by
 ```modula-2
@@ -57,9 +57,52 @@ CONST Foo = 0xDEADBEEF; (* prefix representation *)
 
 ### Unary Minus
 
+M2-Redux will insert parentheses into multi-term expressions with unary minus for disambiguation. This requires the use of command line option `--ebnf-conform-unary-minus` or `--math-conform-unary-minus`.
+
+```modula-2
+i := -a + b;
+```
+will be replaced by
+```modula-2
+i := -(a + b); (* --ebnf-conform-unary-minus *)
+```
+respectively
+```modula-2
+i := -(a) + b; (* --math-conform-unary-minus *)
+```
+depending on the command line option passed.
+
 ### Cast Syntax
 
+M2-Redux will replace all occurences of classic Modula-2 type cast syntax with a function call to the `SYSTEM.CAST()` function adopted from ISO Modula-2.
+
+```modula-2
+int := INTEGER(card); (* legacy syntax *)
+```
+will be replaced by
+```modula-2
+int := SYSTEM.CAST(INTEGER, card); (* ISO M2 syntax *)
+```
+
 ### Type Conversion Functions
+
+M2-Redux will replace calls to built-in type conversion functions `INT()`, `CARD()`, `TRUNC()`, `FLOAT()` and `LFLOAT()` with equivalent calls to built-in function `VAL()`.
+
+```modula-2
+int := INT(card);
+card := CARD(int);
+int := TRUNC(real);
+real := FLOAT(int);
+longReal := LFLOAT(longInt);
+```
+will be replaced by
+```modula-2
+int := VAL(INTEGER, card);
+card := VAL((CARDINAL, int);
+int := VAL(INTEGER, real);
+real := VAL(REAL, int);
+longReal := VAL(LONGREAL, longInt);
+```
 
 ### Array Type Definitions
 
