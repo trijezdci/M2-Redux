@@ -186,4 +186,38 @@ modulus := fmod(i, j);
 ```
 depending on the command line option passed.
 
+## Libraries
+
+M2-Redux provides libraries with replacement functions for the non-portable `DIV` and `MOD` operations. The libraries are released under the [Library General Public License 2.0 (LGPLv2)](https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html).
+
+### IntMath
+
+```modula-2
+DEFINITION MODULE IntMath;
+(* truncated integer division *)
+PROCEDURE tdiv ( i : INTEGER ) : INTEGER;
+(* modulus of truncated integer division *)
+PROCEDURE tmod ( i : INTEGER ) : INTEGER;
+(* floored integer division *)
+PROCEDURE fdiv ( i : INTEGER ) : INTEGER;
+(* modulus of floored integer division *)
+PROCEDURE fmod ( i : INTEGER ) : INTEGER;
+END IntMath.
+```
+
+### LongIntMath
+
+```modula-2
+DEFINITION MODULE LongIntMath;
+(* truncated integer division *)
+PROCEDURE tdiv ( i : LONGINT ) : LONGINT;
+(* modulus of truncated integer division *)
+PROCEDURE tmod ( i : LONGINT ) : LONGINT;
+(* floored integer division *)
+PROCEDURE fdiv ( i : LONGINT ) : LONGINT;
+(* modulus of floored integer division *)
+PROCEDURE fmod ( i : LONGINT ) : LONGINT;
+END LongIntMath.
+```
+
 +++
