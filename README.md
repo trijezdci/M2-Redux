@@ -149,8 +149,7 @@ IMPLEMENTATION MODULE Bar;
 END Bar.
 ```
 
-
-### Access Mode for Imported Variables
+## Access Mode for Imported Variables
 
 M2-Redux will replace all L-value occurences of imported variables into procedure calls to a setter procedure.
 
@@ -185,6 +184,62 @@ quotient := fdiv(i, j); (* floored integer division *)
 modulus := fmod(i, j);
 ```
 depending on the command line option passed.
+
+### Export Lists
+
+M2-Redux will remove all occurences of directives `EXPORT` and `EXPORT QUALIFIED`.
+
+### Function SIZE
+
+M2-Redux will remove any import of function `SYSTEM.SIZE()` and replace any call to function `SYSTEM.SIZE()`, qualified or unqualified, that has an argument of a variant record type with an equivalent call to pervasive function `SIZE()`.
+
+```modula-2
+size := SYSTEM.SIZE(variantRecord);
+```
+will be replaced by
+```modula-2
+size := SIZE(variandRecord);
+```
+
+M2-Redux will further replace any call to function `SYSTEM.SIZE()`, qualified or unqualified, or to pervasive function `SIZE()` that has an argument that is not of a variant record type with an equivalent call to pervasive function `TSIZE()`.
+
+```modula-2
+TYPE FooType = << any non-variant type >>;
+VAR fooVar : FooType;
+size := SYSTEM.SIZE(fooVar);
+```
+will be replaced by
+```modula-2
+TYPE FooType = << any non-variant type >>;
+VAR fooVar : FooType;
+size := TSIZE(FooType);
+```
+
+### Function TSIZE
+
+M2-Redux will remove any import of function `SYSTEM.TSIZE()` and replace any call to function `SYSTEM.TSIZE()`, qualified or unqualified, with an equivalent call to pervasive function `TSIZE()`.
+
+```modula-2
+size := SYSTEM.TSIZE(Type);
+```
+will be replaced by
+```modula-2
+size := TSIZE(Type);
+```
+
+### Functions MIN and MAX
+
+M2-Redux will replace any call to pervasive function `MIN()` with an equivalent call to pervasive function `TMIN()` and any call to pervasive function `MAX()` with an equivalent call to pervasive function `TMAX()`.
+
+```modula-2
+min := MIN(Type);
+max := MAX(Type);
+```
+will be replaced by
+```modula-2
+min := TMIN(Type);
+max := TMAX(Type);
+```
 
 ## Libraries
 
