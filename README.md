@@ -98,7 +98,7 @@ longReal := LFLOAT(longInt);
 will be replaced by
 ```modula-2
 int := VAL(INTEGER, card);
-card := VAL((CARDINAL, int);
+card := VAL(CARDINAL, int);
 int := VAL(INTEGER, real);
 real := VAL(REAL, int);
 longReal := VAL(LONGREAL, longInt);
