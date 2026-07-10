@@ -120,4 +120,37 @@ TYPE A = ARRAY [0..9], [0..9] OF B; (* short form *)
 
 ### Access Mode for Imported Variables
 
+M2-Redux will replace all L-value occurences of imported variables into procedure calls to a setter procedure.
+
+```modula-2
+FROM Foo IMPORT foo;
+foo := expr;
+```
+will be replaced by
+```modula-2
+FROM Foo IMPORT foo, setFoo;
+setFoo(expr);
+```
+
 ### DIV and MOD with Negative Operands
+
+M2-Redux will replace all occurences of sub-expression terms that use `DIV` and `MOD` on operands of type `INTEGER` and `LONGINT` with equivalent function calls to tdiv(), tmod(), fdiv() and fmod(). This requires the use of command line option `--pim3` or `--pim4`.
+
+```modula-2
+quotient := i DIV j;
+modulus := i MOD j;
+```
+will be replaced by
+```modula-2
+(* --pim3 *)
+quotient := tdiv(i, j);
+modulus := tmod(i, j);
+```
+respectively
+```modula-2
+(* --pim4 *)
+quotient := fdiv(i, j);
+modulus := fmod(i, j);
+```
+depending on the command line option passed.
++++
