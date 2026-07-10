@@ -106,6 +106,16 @@ longReal := VAL(LONGREAL, longInt);
 
 ### Array Type Definitions
 
+M2-Redux will replace all occurences of long form array type definitions with their short form equivalents.
+
+```modula-2
+TYPE A = ARRAY [0..9] OF ARRAY [0..9] OF B; (* long form *)
+```
+will be replaced by
+```modula-2
+TYPE A = ARRAY [0..9], [0..9] OF B; (* short form *)
+```
+
 ### Local (Nested) Modules
 
 ### Access Mode for Imported Variables
