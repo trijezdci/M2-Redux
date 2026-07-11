@@ -146,7 +146,7 @@ DEFINITION MODULE Bar (*$PRIVATETO=Foo*);
   << interface for module Bar >>
 END Bar.
 ```
-and where the implementation module contains the body of the formerly local module.
+where the implementation module contains the body of the formerly local module.
 ```modula-2
 IMPLEMENTATION MODULE Bar;
   << body of local module Bar >>
@@ -155,7 +155,7 @@ END Bar.
 
 ## Access Mode for Imported Variables
 
-M2-Redux will replace all L-value occurences of imported variables into procedure calls to a setter procedure.
+M2-Redux will replace all L-value occurences of imported variables with procedure calls to a setter procedure.
 
 ```modula-2
 FROM Foo IMPORT foo;
