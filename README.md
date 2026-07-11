@@ -13,14 +13,14 @@ M2-Redux is released under the [General Public License 2.0 (GPLv2)](https://www.
 
 ### Operator Synonyms
 
-M2-Redux will replace all occurences of synonym operators `&` and `~` with their keyword equivalents.
+M2-Redux will replace all occurences of synonym operators `&` and `~` with their keyword equivalents. It will further replace all occurences of `<>` with `#`.
 
 ```modula-2
-IF ~foo & bar THEN ...
+IF ~foo & (bar <> baz) THEN ...
 ```
 will be replaced by
 ```modula-2
-IF NOT foo AND bar THEN ...
+IF NOT foo AND (bar # baz) THEN ...
 ```
 
 ### Octal Number Literals
