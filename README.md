@@ -250,13 +250,13 @@ M2-Redux provides libraries with replacement functions for the non-portable `DIV
 ```modula-2
 DEFINITION MODULE IntMath;
 (* truncated integer division *)
-PROCEDURE tdiv ( i : INTEGER ) : INTEGER;
+PROCEDURE tdiv ( i, j : INTEGER ) : INTEGER;
 (* modulus of truncated integer division *)
-PROCEDURE tmod ( i : INTEGER ) : INTEGER;
+PROCEDURE tmod ( i, j : INTEGER ) : INTEGER;
 (* floored integer division *)
-PROCEDURE fdiv ( i : INTEGER ) : INTEGER;
+PROCEDURE fdiv ( i, j : INTEGER ) : INTEGER;
 (* modulus of floored integer division *)
-PROCEDURE fmod ( i : INTEGER ) : INTEGER;
+PROCEDURE fmod ( i, j : INTEGER ) : INTEGER;
 END IntMath.
 ```
 
@@ -265,13 +265,13 @@ END IntMath.
 ```modula-2
 DEFINITION MODULE LongIntMath;
 (* truncated integer division *)
-PROCEDURE tdiv ( i : LONGINT ) : LONGINT;
+PROCEDURE tdiv ( i, j : LONGINT ) : LONGINT;
 (* modulus of truncated integer division *)
-PROCEDURE tmod ( i : LONGINT ) : LONGINT;
+PROCEDURE tmod ( i, j : LONGINT ) : LONGINT;
 (* floored integer division *)
-PROCEDURE fdiv ( i : LONGINT ) : LONGINT;
+PROCEDURE fdiv ( i, j : LONGINT ) : LONGINT;
 (* modulus of floored integer division *)
-PROCEDURE fmod ( i : LONGINT ) : LONGINT;
+PROCEDURE fmod ( i, j : LONGINT ) : LONGINT;
 END LongIntMath.
 ```
 
