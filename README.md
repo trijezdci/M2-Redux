@@ -5,6 +5,10 @@ M2-Redux is a feature-reduction and syntax-simplification utility for classic Mo
 
 The conversion of Modula-2 source code with this utility allows downstream classic Modula-2 compilers to remove support for outdated, redundant and non-essential features altogether. The converted source code can still be compiled on such a feature reduced compiler with no or very little manual modification.
 
+## License
+
+M2-Redux is released under the [General Public License 2.0 (GPLv2)](https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html).
+
 ## Conversions
 
 ### Operator Synonyms
