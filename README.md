@@ -270,7 +270,7 @@ PROCEDURE ["C"] / foo_bar ( baz : Bam ); (* TopSpeed *)
 ```
 and
 ```modula-2
-(*$FOREIGN="foo_bar"*) PROCEDURE fooBar ( baz : Bam ); (* ACK *)
+(*$FOREIGN="foo_bar"*) PROCEDURE FooBar ( baz : Bam ); (* ACK *)
 ```
 will be replaced by
 ```modula-2
