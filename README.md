@@ -262,7 +262,7 @@ DEFINITION MODULE Foobar (*$FFI="C"*);
 
 M2-Redux will further replace non-standard procedure headers with a foreign definition module that use or map to foreign identifiers with standard procedure headers that map to foreign identifiers via an `FFIDENT` pragma.
 ```modula-2
-PROCEDURE foo_bar ( baz : Bam ); (* MOCKA *)
+PROCEDURE foo_bar ( baz : Bam ); (* Logitech, MOCKA *)
 ```
 and
 ```modula-2
@@ -274,7 +274,7 @@ and
 ```
 will be replaced by
 ```modula-2
-PROCEDURE fooBar ( baz : Bam ) (*$FFIDENT="foo_bar"*);
+PROCEDURE FooBar ( baz : Bam ) (*$FFIDENT="foo_bar"*);
 ```
 
 
