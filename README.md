@@ -245,6 +245,39 @@ min := TMIN(Type);
 max := TMAX(Type);
 ```
 
+### Foreign Function Interfacing (FFI)
+
+M2-Redux will replace non-standard foreign definition module headers with a standard definition module header that marks the interface with an `FFI` pragma.
+```modula-2
+FOREIGN DEFINITION MODULE Foobar; (* Logitech, GPM, MOCKA *)
+```
+and
+```modula-2
+DEFINITION MODULE FOR "C" Foobar; (* GNU *)
+```
+will be replaced by
+```modula-2
+DEFINITION MODULE Foobar (*$FFI="C"*);
+```
+
+M2-Redux will further replace non-standard procedure headers with a foreign definition module that use or map to foreign identifiers with standard procedure headers that map to foreign identifiers via an `FFIDENT` pragma.
+```modula-2
+PROCEDURE foo_bar ( baz : Bam ); (* MOCKA *)
+```
+and
+```modula-2
+PROCEDURE ["C"] / foo_bar ( baz : Bam ); (* TopSpeed *)
+```
+and
+```modula-2
+(*$FOREIGN="foo_bar"*) PROCEDURE fooBar ( baz : Bam ); (* ACK *)
+```
+will be replaced by
+```modula-2
+PROCEDURE fooBar ( baz : Bam ) (*$FFIDENT="foo_bar"*);
+```
+
+
 ## Libraries
 
 M2-Redux provides libraries with replacement functions for the non-portable `DIV` and `MOD` operations. The libraries are released under the [Library General Public License 2.0 (LGPLv2)](https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html).
