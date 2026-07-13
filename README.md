@@ -247,6 +247,8 @@ max := TMAX(Type);
 
 ### Foreign Function Interfacing (FFI)
 
+#### Module Header Normalisation
+
 M2-Redux will replace non-standard foreign definition module headers with a standard definition module header that marks the interface with an `FFI` pragma.
 ```modula-2
 FOREIGN DEFINITION MODULE Foobar; (* Logitech, GPM, MOCKA *)
@@ -259,6 +261,8 @@ will be replaced by
 ```modula-2
 DEFINITION MODULE Foobar (*$FFI="C"*);
 ```
+
+#### Foreign Function Identifier Mapping
 
 M2-Redux will further replace non-standard procedure headers with a foreign definition module that use or map to foreign identifiers with standard procedure headers that map to foreign identifiers via an `FFIDENT` pragma.
 ```modula-2
@@ -275,6 +279,39 @@ and
 will be replaced by
 ```modula-2
 PROCEDURE FooBar ( baz : Bam ) (*$FFIDENT="foo_bar"*);
+```
+
+#### Hoisting Foreign Function Declarations from Mixed Modules
+
+Where modules contain both standard and foreign function declarations, M2-Redux will remove all foreign function declarations and place them in a separate foreign function interface module.
+```modula-2
+DEFINITION MODULE Foobar; (* Standard definition module *)
+PROCEDURE BarBaz ( bam : Boo ); (* standard procedure declaration *)
+PROCEDURE ["C"] / baz_bam ( boo : Bee ); (* foreign procedure declaration *)
+END Foobar.
+```
+will be replaced by
+```modula-2
+DEFINITION MODULE Foobar0 (*$FFI="C"; PRIVATETO=Foobar*);
+PROCEDURE BazBam ( boo : Bee ) (*$FFIDENT="baz_bam"*);
+END Foobar0.
+```
+and
+```modula-2
+DEFINITION MODULE Foobar;
+PROCEDURE BarBaz ( bam : Boo );
+TYPE BazBamFn = PROCEDURE ( Bee );
+VAR BazBam : BazBamFn;
+END Foobar.
+```
+and
+```modula-2
+IMPLEMENTATION MODULE Foobar;
+IMPORT Foobar0;
+...
+BEGIN
+  BazBam := Foobar0.BazBam;
+END Foobar0.
 ```
 
 
