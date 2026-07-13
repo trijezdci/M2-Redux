@@ -4,7 +4,7 @@
 
 add transformation for bit shifting
 
-(1) Logitech/MOCKA : `SYSTEM.SHIFT()` function
+(1) Logitech/MOCKA/ACK : `SYSTEM.SHIFT()` function
 
 transform
 
@@ -26,6 +26,9 @@ foo := SYSTEM.SHR(val, shiftFactor);
 ```
 
 for non-constant `shiftFactor` replace with call to `BitShifts.ShiftInteger()` or `BitShifts.ShiftCardinal()`.
+
+Casting may be necessary depending on type.
+
 
 (2) TopSpeed/StonyBrook : pervasive `LSH()` and `RSH()` functions
 
