@@ -316,7 +316,7 @@ END Foobar0.
 
 ### Bit Operations
 
-M2-Redux will replace all occurences of sub-expression terms that use bitwise logical 16- and 32-bit operations `NOT`, `AND`, `OR` and `XOR` with equivalent 32-bit function calls to `SYSTEM.BWNOT()`, `SYSTEM.BWAND()`, `SYSTEM.BWOR()` and `SYSTEM.BWXOR()` respectively.
+M2-Redux will replace all occurences of sub-expression terms that use bitwise logical 16- and 32-bit operations `NOT`, `AND`, `OR` and `XOR` with equivalent 32- and 64-bit function calls to `SYSTEM.BWNOT()`, `SYSTEM.BWAND()`, `SYSTEM.BWOR()` and `SYSTEM.BWXOR()` respectively.
 
 #### Input Syntax Forms
 
