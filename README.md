@@ -314,7 +314,7 @@ BEGIN
 END Foobar0.
 ```
 
-### Bit Operations
+### Bitwise Logical Operations
 
 M2-Redux will replace all occurences of sub-expression terms that use bitwise logical 16- and 32-bit operations `NOT`, `AND`, `OR` and `XOR` with equivalent 32- and 64-bit function calls to `SYSTEM.BWNOT()`, `SYSTEM.BWAND()`, `SYSTEM.BWOR()` and `SYSTEM.BWXOR()` respectively.
 
@@ -349,9 +349,39 @@ The following transformations are carried out in the output:
 | **(4) bitwise xor** | `SYSTEM.BWXOR(a, b)` | `SYSTEM.BWAND(SYSTEM.BWXOR(a, b), 0FFFFH)` |
 
 
+### Bit Shift Operations
+
+M2-Redux will replace occurences of bi-directioal bit-shifting sub-expression terms with equivalent function calls to `SYSTEM.SHL()` and `SYSTEM.SHR()` for constant shift factors, and `BitShifts.shiftCardinal()`, `BitShifts.shiftInteger()`, `BitShifts.shiftLongInt()` and `BitShifts.shiftLongCard()` for non-constant shift factors.
+
+Terms of the form
+```modula-2
+SYSTEM.BITSHIFT(val, shiftFactor) (* GPM *)
+SYSTEM.SHIFT(val, shiftFactor) (* ACK, GM2, Logitech, MOCKA *)
+```
+where `val` is of type `WORD`, `INTEGER`, `CARDINAL`, `LONGINT` or `LONGCARD`, and shiftFactor is of type `INTEGER`
+
+are replaced as follows
+| shift factor | 32 bit operand | 16 bit operand |
+| :----------- | :------------- | :------------- |
+| constant > 0 | `SYSTEM.SHL(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFH)` |
+| constant < 0 | `SYSTEM.SHR(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHR(val, shiftFactor), 0FFFFH)` |
+| non-constant | `BitShift.shiftLongInt(val, shiftFactor)`<br>`BitShift.shiftLongCard(val, shiftFactor)` | `BitShift.shiftInteger(val, shiftFactor)`<br>`BitShift.shiftCardinal(val, shiftFactor)`|
+
+M2-Redux will replace occurences of uni-directioal bit-shifting sub-expression terms with equivalent function calls to `SYSTEM.SHL()` and `SYSTEM.SHR()` as follows
+
+| source term | 32 bit operand | 16 bit operand |
+| :----------- | :------------- | :------------- |
+| `LSH(val, shiftFactor)` | `SYSTEM.SHL(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFH)` |
+| `RSH(val, shiftFactor)` | `SYSTEM.SHR(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHR(val, shiftFactor), 0FFFFH)` |
+| `BitOp.SHLW(val, shiftFactor)` | `SYSTEM.SHL(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFH)` |
+| `BitOp.SHRW(val, shiftFactor)` | `SYSTEM.SHR(val, shiftFactor)` | `SYSTEM.BWAND(SYSTEM.SHR(val, shiftFactor), 0FFFFH)` |
+| `BitOp.SHLL(val, shiftFactor)` | `SYSTEM.SHL(val, shiftFactor)` | n/a |
+| `BitOp.SHRL(val, shiftFactor)` | `SYSTEM.SHR(val, shiftFactor)` | n/a |
+
+
 ## Libraries
 
-M2-Redux provides libraries with replacement functions for the non-portable `DIV` and `MOD` operations. The libraries are released under the [Library General Public License 2.0 (LGPLv2)](https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html).
+M2-Redux provides libraries with replacement functions for the non-portable `DIV` and `MOD` operations and bi-directional bit shift functions for non-constant argument use cases. The libraries are released under the [Library General Public License 2.0 (LGPLv2)](https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html).
 
 ### IntMath
 
@@ -381,6 +411,21 @@ PROCEDURE fdiv ( i, j : LONGINT ) : LONGINT;
 (* modulus of floored integer division *)
 PROCEDURE fmod ( i, j : LONGINT ) : LONGINT;
 END LongIntMath.
+```
+
+### BitShifts
+
+```modula-2
+DEFINITION MODULE BitShifts;
+(* shift integer *)
+PROCEDURE shiftInteger ( i, shiftFactor : INTEGER ) : INTEGER;
+(* shift cardinal *)
+PROCEDURE shiftCardinal ( n : CARDINAL; shiftFactor : INTEGER ) : CARDINAL;
+(* shift long integer *)
+PROCEDURE shiftLongInt ( i : LONGINT; shiftFactor : INTEGER ) : LONGINT;
+(* shift long cardinal *)
+PROCEDURE shiftLongCard ( n : LONGCARD; shiftFactor : INTEGER ) : LONGCARD;
+END BitShifts.
 ```
 
 +++
