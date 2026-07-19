@@ -320,7 +320,7 @@ M2-Redux will replace all occurences of sub-expression terms that use bitwise lo
 
 #### Input Syntax Forms
 
-The following syntax forms are recognised in the input:
+The following syntax, qualified and unqualified, is recognised in the input:
 
 | Dialect | (1) bitwise not | (2) bitwise and | (3) bitwise or | (4) bitwise xor |
 | :--- | :--- | :--- | :--- | :--- |
