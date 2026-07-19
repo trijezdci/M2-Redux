@@ -314,6 +314,40 @@ BEGIN
 END Foobar0.
 ```
 
+### Bit Operations
+
+M2-Redux will replace all occurences of sub-expression terms that use bitwise logical 16- and 32-bit operations `NOT`, `AND`, `OR` and `XOR` with equivalent 32-bit function calls to `SYSTEM.BWNOT()`, `SYSTEM.BWAND()`, `SYSTEM.BWOR()` and `SYSTEM.BWXOR()` respectively.
+
+#### Input Syntax Forms
+
+The following syntax forms are recognised in the input:
+
+| Dialect | (1) bitwise not | (2) bitwise and | (3) bitwise or | (4) bitwise xor |
+| :--- | :--- | :--- | :--- | :--- |
+| **TopSpeed** | `NOT a` | `a AND b` | `a OR b` | `a XOR b` |
+| **Stony Brook** | `BNOT a` | `a BAND b` | `a BOR b` | `a BXOR b` |
+| **FST (16-bit)** | `Not(a)` | `And(a, b)` | `Or(a, b)` | `Xor(a, b)` |
+| **FST (32-bit)** | `NotLong(a)` | `AndLong(a, b)`| `OrLong(a, b)` | `XorLong(a, b)`|
+| **Logitech** | `Not(a)` | `And(a, b)` | `Or(a, b)` | `Xor(a, b)` |
+| **ACK** | `SYSTEM.NOT(a)` | `SYSTEM.AND(a, b)` | `SYSTEM.OR(a, b)` | `SYSTEM.XOR(a, b)` |
+| **MOCKA** | `SYSTEM.NOT(a)` | `SYSTEM.AND(a, b)` | `SYSTEM.OR(a, b)` | `SYSTEM.XOR(a, b)` |
+| **GPM** | `SYSTEM.BITNOT(a)`| `SYSTEM.BITAND(a,b)`| `SYSTEM.BITOR(a,b)`| `SYSTEM.BITXOR(a,b)`|
+
+where `a` and `b` are of types `WORD`, `CARDINAL`, `INTEGER`, `LONGINT` or `LONGCARD`.
+
+#### Transformations
+
+Types `CARDINAL` and `INTEGER` are always assumed to be of the same size as `WORD`. By default M2-Redux assumes a `WORD` size of 32 bits and a `LONGCARD` and `LONGINT` size of 64 bits. If the source code was written for targets with a `WORD` size of 16 bits, the use of command line option `--assume-16bit-wordsize` is required, except for source code that is written for FST or GPM.
+
+The following transformations are carried out in the output:
+
+|  Operation  | 32-bit (default) | 16-bit (`--assume-16bit-wordsize`) |
+| :--- | :--- | :--- |
+| **(1) bitwise not** | `SYSTEM.BWNOT(a)`    | `SYSTEM.BWAND(SYSTEM.BWNOT(a), 0FFFFH)` |
+| **(2) bitwise and** | `SYSTEM.BWAND(a, b)` | `SYSTEM.BWAND(a, b)` |
+| **(3) bitwise or**  | `SYSTEM.BWOR(a, b)`  | `SYSTEM.BWAND(SYSTEM.BWOR(a, b), 0FFFFH)` |
+| **(4) bitwise xor** | `SYSTEM.BWXOR(a, b)` | `SYSTEM.BWAND(SYSTEM.BWXOR(a, b), 0FFFFH)` |
+
 
 ## Libraries
 
