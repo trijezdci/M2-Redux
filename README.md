@@ -326,7 +326,7 @@ The following syntax forms are recognised in the input:
 | :--- | :--- | :--- | :--- | :--- |
 | **TopSpeed** | `NOT a` | `a AND b` | `a OR b` | `a XOR b` |
 | **Stony Brook** | `BNOT a` | `a BAND b` | `a BOR b` | `a BXOR b` |
-| **FST (16-bit)** | `BitOps.Not(a)` | `BitOps.And(a, b)` | `BitOps.Or(a, b)` | `BitOps.Xor(a, b)` |
+| **FST (16-bit)** | `BitOp.Not(a)` | `BitOp.And(a, b)` | `BitOp.Or(a, b)` | `BitOp.Xor(a, b)` |
 | **FST (32-bit)** | `BitOps.NotLong(a)` | `BitOps.AndLong(a, b)`| `BitOps.OrLong(a, b)` | `BitOps.XorLong(a, b)`|
 | **Logitech** | `BitBlockOps.Not(a)` | `BitBlockOps.And(a, b)` | `BitBlockOps.Or(a, b)` | `BitBlockOps.Xor(a, b)` |
 | **ACK** | `SYSTEM.NOT(a)` | `SYSTEM.AND(a, b)` | `SYSTEM.OR(a, b)` | `SYSTEM.XOR(a, b)` |
