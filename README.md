@@ -367,8 +367,8 @@ where `val` is of type `WORD`, `INTEGER`, `CARDINAL`, `LONGINT` or `LONGCARD`, a
 are replaced as follows
 | shift factor | 32 bit operand | 16 bit operand |
 | :----------- | :------------- | :------------- |
-| constant > 0 | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFFFFFH)` | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFH)` |
-| constant < 0 | `SYSTEM.SHR(val, shiftFactor)` | `SYSTEM.SHR(val, shiftFactor)` |
+| constant >&nbsp;0 | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFFFFFH)` | `SYSTEM.BWAND(SYSTEM.SHL(val, shiftFactor), 0FFFFH)` |
+| constant <&nbsp;0 | `SYSTEM.SHR(val, shiftFactor)` | `SYSTEM.SHR(val, shiftFactor)` |
 | non-constant | `BitShift.shiftLongInt(val, shiftFactor)`<br>`BitShift.shiftLongCard(val, shiftFactor)` | `BitShift.shiftInteger(val, shiftFactor)`<br>`BitShift.shiftCardinal(val, shiftFactor)`|
 
 M2-Redux will replace occurences of uni-directioal bit-shifting sub-expression terms with equivalent function calls to `SYSTEM.SHL()` and `SYSTEM.SHR()` as follows
