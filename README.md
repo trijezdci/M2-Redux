@@ -193,6 +193,10 @@ depending on the command line option passed.
 
 M2-Redux will remove all occurences of directives `EXPORT` and `EXPORT QUALIFIED`.
 
+### Superfluous Semicolons
+
+M2-Redux will remove all occurences of semicolons before `)`, `|`, `ELSE`, `ELSIF`, `END` and `UNTIL`.
+
 ### Function SIZE
 
 M2-Redux will remove any import of function `SYSTEM.SIZE()` and replace any call to function `SYSTEM.SIZE()`, qualified or unqualified, that has an argument of a variant record type with an equivalent call to pervasive function `SIZE()`.
