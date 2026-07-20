@@ -49,7 +49,7 @@ CONST Space = CHR(32); (* decimal representation *)
 
 ### Suffix Literals (Optional)
 
-M2-Redux **may** replace all occurences of `H` suffixed base-16 literals with their `0x` prefixed equivalents. This option requires the use of command line option `--suffix-literals`.
+M2-Redux **may** replace all occurences of `H` suffixed base-16 literals with their `0x` prefixed equivalents. This option requires the use of command line option `--prefix-literals`.
 
 ```modula-2
 CONST Foo = 0DEADBEEFH; (* suffix representation *)
